@@ -1,13 +1,9 @@
 class Recipe
-  attr_reader :name, :needed
+  attr_reader :name, :ingredients_required
 
   def initialize(name)
     @name = name
-    @needed = Hash.new(0)
-  end
-
-  def ingredients_required
-    @needed
+    @ingredients_required = Hash.new(0)
   end
 
   def add_ingredient(ingredient, quantity)
@@ -15,12 +11,12 @@ class Recipe
   end
 
   def ingredients
-    @needed.keys
+    @ingredients_required.keys
   end
 
   def total_calories
-    @needed.sum do |need, quantity|
-      need.calories * quantity
+    @ingredients_required.sum do |required, quantity|
+      required.calories * quantity
     end
   end
 
