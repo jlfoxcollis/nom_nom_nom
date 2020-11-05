@@ -22,6 +22,8 @@ class RecipeTest < MiniTest::Test
   end
 
   def test_cook_book_recipes
+
+    assert_equal [], @cookbook.recipes
     @cookbook.add_recipe(@recipe1)
     @cookbook.add_recipe(@recipe2)
 
@@ -37,9 +39,17 @@ class RecipeTest < MiniTest::Test
 
     assert_equal 440, @recipe1.total_calories
     assert_equal 601, @recipe2.total_calories
+  end
 
+  def test_highest_calories_meal
+    @recipe1.add_ingredient(@ingredient1, 2)
+    @recipe1.add_ingredient(@ingredient2, 8)
+    @recipe2.add_ingredient(@ingredient1, 2)
+    @recipe2.add_ingredient(@ingredient3, 4)
+    @recipe2.add_ingredient(@ingredient4, 1)
     @cookbook.add_recipe(@recipe1)
     @cookbook.add_recipe(@recipe2)
+
     assert_equal ["Cheese", "Macaroni", "Ground Beef", "Bun"], @cookbook.ingredients
     assert_equal @recipe2, @cookbook.highest_calories_meal
   end
@@ -64,10 +74,12 @@ class RecipeTest < MiniTest::Test
     assert_equal true, @pantry.enough_ingredients_for?(@recipe1)
   end
 
-  def test_date_and_summary
+  def test_date
 
     assert_equal "04-22-2020", @cookbook.date
+  end
 
+  def test_summary
     @recipe1.add_ingredient(@ingredient2, 8)
     @recipe1.add_ingredient(@ingredient1, 2)
     @recipe2.add_ingredient(@ingredient3, 4)

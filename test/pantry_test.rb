@@ -25,4 +25,7 @@ class PantryTest < MiniTest::Test
 
     assert_equal 7, @pantry.stock_check(@ingredient2)
   end
+
+  def enough_ingredients_for?
+
 end
